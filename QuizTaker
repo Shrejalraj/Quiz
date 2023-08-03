@@ -1,0 +1,35 @@
+package Quiz;
+
+	import java.util.List;
+	import java.util.Scanner;
+
+	public class QuizTaker {
+	    public int takeQuiz(Quiz quiz) {
+	        Scanner scanner = new Scanner(System.in);
+	        int totalScore = 0;
+
+	        System.out.println("Welcome to the " + quiz.getQuizName() + " quiz!");
+
+	        List<Question> questions = quiz.getQuestions();
+
+	        for (int i = 0; i < questions.size(); i++) {
+	            Question question = questions.get(i);
+	            System.out.println((i + 1) + ". " + question.getQuestionText());
+
+	            List<String> options = question.getOptions();
+	            for (int j = 0; j < options.size(); j++) {
+	                System.out.println((char) ('A' + j) + ". " + options.get(j));
+	            }
+
+	            System.out.print("Enter your answer (A/B/C/D): ");
+	            char userAnswer = scanner.next().charAt(0);
+
+	            if (userAnswer == ('A' + question.getCorrectOptionIndex())) {
+	                totalScore += question.getPointValue();
+	            }
+	        }
+
+	        scanner.close();
+	        return totalScore;
+	    }
+	}
